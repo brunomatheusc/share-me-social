@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 import { GoogleLogin, googleLogout, CredentialResponse } from '@react-oauth/google';
-import { FcGoogle } from 'react-icons/fc';
 
 import { client } from 'providers/sanityClient';
 import { createOrGetUser } from 'utils/fetchOrDecodeGoogleResponse';
@@ -11,9 +10,9 @@ export default function Login() {
 
 	async function responseGoogle(response: CredentialResponse) {
 		const user = await createOrGetUser(response);
-		localStorage.setItem('user', JSON.stringify(user));
-
 		const { name, picture, sub: googleId } = user;
+
+		localStorage.setItem('user', JSON.stringify({ _id: googleId, googleId, name, imageUrl: picture }));
 
 		const doc = {
 			_id: googleId,
@@ -21,8 +20,6 @@ export default function Login() {
 			userName: name,
 			image: picture,
 		};
-
-		console.log({ response, user });
 
 		await client.createIfNotExists(doc);
 
