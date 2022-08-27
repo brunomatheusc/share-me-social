@@ -2,8 +2,6 @@ import { useRouter } from 'next/router';
 
 import { GoogleLogin, googleLogout, CredentialResponse } from '@react-oauth/google';
 
-import { client } from 'providers/sanityClient';
-import { createOrGetUser } from 'utils/fetchOrDecodeGoogleResponse';
 import useAuth from 'hooks/auth';
 
 export default function Login() {
@@ -11,20 +9,6 @@ export default function Login() {
 	const { signUp } = useAuth();
 
 	async function responseGoogle(response: CredentialResponse) {
-		// const user = await createOrGetUser(response);
-		// const { name, picture, sub: googleId } = user;
-
-		// localStorage.setItem('user', JSON.stringify({ _id: googleId, googleId, name, imageUrl: picture }));
-
-		// const doc = {
-		// 	_id: googleId,
-		// 	_type: 'user',
-		// 	userName: name,
-		// 	image: picture,
-		// };
-
-		// await client.createIfNotExists(doc);
-
 		await signUp(response);
 
 		router.push('/');
@@ -49,16 +33,6 @@ export default function Login() {
 
 					<div className="shadow-2xl">
 						<GoogleLogin 
-							// render={(renderProps) => (
-							// 	<button
-							// 		type="button"
-							// 		className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-							// 		onClick={renderProps.onClick}
-							// 		disabled={renderProps.disabled}
-							// 	>
-							// 		<FcGoogle className="mr-4" /> Sign in with Google
-							// 	</button>
-							// )}
 							onSuccess={(response) => responseGoogle(response)}
 							onError={() => console.log("ERROR")}
 						/>

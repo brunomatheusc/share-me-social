@@ -38,7 +38,7 @@ export default function Sidebar({ user, closeToggle }: SidebarProps) {
 				</Link>
 
 				<div className="flex flex-col gap-5">
-					<NavLink href="/" onClick={handleCloseSidebar}>
+					<NavLink href="/" exact onClick={handleCloseSidebar}>
 						<RiHomeFill />
 						<span>Home</span>
 					</NavLink>
