@@ -4,24 +4,28 @@ import { GoogleLogin, googleLogout, CredentialResponse } from '@react-oauth/goog
 
 import { client } from 'providers/sanityClient';
 import { createOrGetUser } from 'utils/fetchOrDecodeGoogleResponse';
+import useAuth from 'hooks/auth';
 
 export default function Login() {
 	const router = useRouter();
+	const { signUp } = useAuth();
 
 	async function responseGoogle(response: CredentialResponse) {
-		const user = await createOrGetUser(response);
-		const { name, picture, sub: googleId } = user;
+		// const user = await createOrGetUser(response);
+		// const { name, picture, sub: googleId } = user;
 
-		localStorage.setItem('user', JSON.stringify({ _id: googleId, googleId, name, imageUrl: picture }));
+		// localStorage.setItem('user', JSON.stringify({ _id: googleId, googleId, name, imageUrl: picture }));
 
-		const doc = {
-			_id: googleId,
-			_type: 'user',
-			userName: name,
-			image: picture,
-		};
+		// const doc = {
+		// 	_id: googleId,
+		// 	_type: 'user',
+		// 	userName: name,
+		// 	image: picture,
+		// };
 
-		await client.createIfNotExists(doc);
+		// await client.createIfNotExists(doc);
+
+		await signUp(response);
 
 		router.push('/');
 	}
