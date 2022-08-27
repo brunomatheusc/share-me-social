@@ -52,6 +52,19 @@ export default function Sidebar({ user, closeToggle }: SidebarProps) {
 					))}
 				</div>
 			</div>
+
+			{ user && (
+				<Link 
+					href={`user-profile/${user._id}`}
+					passHref
+					onClick={handleCloseSidebar}
+				>
+					<a className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
+						<img src={user.image} referrerPolicy="no-referrer" className="w-10 h-10 rounded-full" alt="User profile" />
+						<p>{user.userName}</p>
+					</a>
+				</Link>
+			)}
 		</div>
 	);
 }
