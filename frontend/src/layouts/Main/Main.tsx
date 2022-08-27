@@ -1,16 +1,21 @@
-import { useState, useRef, useEffect } from 'react';
+import { ReactNode, useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiMenu } from 'react-icons/hi';
 
-import { client } from 'providers/sanityClient';
 import { userQuery } from 'utils/data';
+import { client } from 'providers/sanityClient';
 
-import Pins from 'container/Pins';
-import { Sidebar, UserProfile } from 'components';
+import { Topbar, Footer, Sidebar } from './components';
 
-export default function HomeContainer() {
+interface Props {
+	children: ReactNode;
+	themeToggler: Function;
+	themeMode: string;
+};
+
+const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {	
 	let userInfo: any = {};
 	
 	if (typeof window !== 'undefined') {
@@ -18,6 +23,7 @@ export default function HomeContainer() {
 	}
 	
 	const scrollRef = useRef<HTMLDivElement>(null);
+
 	const [user, setUser] = useState<User>({} as User);
 	const [toggleSidebar, setToggleSidebar] = useState(false);
 
@@ -29,10 +35,6 @@ export default function HomeContainer() {
 			setUser(response);
 		})();
 	}, []);	
-
-	useEffect(() => {
-		scrollRef.current?.scrollTo(0, 0);
-	}, []);
 
 	return (
 		<div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
@@ -64,10 +66,13 @@ export default function HomeContainer() {
 				)}
 			</div>
 
-			<div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
-				<Link href={`/user-profile/${user?._id}`}>Profile</Link>
-				<Link href="/pins">Pins</Link>
-			</div>
+			{/* <Sidebar user={user} closeToggle={setToggleSidebar} /> */}
+
+			<main className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
+				{children}
+			</main>
 		</div>
 	);
-}
+};
+
+export default Main;
