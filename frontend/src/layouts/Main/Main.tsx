@@ -34,7 +34,7 @@ const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {
 					</Link>
 
 					<Link href={`/user-profile/${user?._id}`}>
-						<img src={user.image} alt="logo" className="w-16" referrerPolicy="no-referrer" />
+						<img src={user?.image} alt="logo" className="w-16" referrerPolicy="no-referrer" />
 					</Link>
 				</div>
 
