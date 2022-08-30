@@ -6,6 +6,9 @@ interface Pin {
 		}
 	};
 	postedBy: User;
-	save: boolean;
+	save: {
+		postedBy: User;
+		userId: string;
+	}[];
 	_id: string;
 }
