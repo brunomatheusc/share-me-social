@@ -6,9 +6,7 @@ import Main from 'layouts/Main';
 import { Search } from 'components';
 
 const SearchPage: NextPage = () => {
-	return (
-		<WithLayout layout={Main} component={Search} />
-	);
+	return <WithLayout layout={Main} component={Search} />;	
 }
 
 export default SearchPage;

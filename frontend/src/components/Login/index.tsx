@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-
-import { GoogleLogin, googleLogout, CredentialResponse } from '@react-oauth/google';
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import toast, { Toaster } from 'react-hot-toast';
 
 import useAuth from 'hooks/auth';
 
@@ -11,11 +11,15 @@ export default function Login() {
 	async function responseGoogle(response: CredentialResponse) {
 		await signUp(response);
 
+		toast.success('Login successful!');
+
 		router.push('/');
 	}
 
 	return (
 		<div className="flex justify-start items-center flex-col h-screen">
+			<Toaster position="top-center" reverseOrder={false} />
+
 			<div className="relative w-full h-full">
 				<video
 					src="/assets/share.mp4"
