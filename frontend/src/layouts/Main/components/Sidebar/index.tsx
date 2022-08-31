@@ -3,13 +3,15 @@ import { RiHomeFill } from 'react-icons/ri';
 
 import NavLink from 'components/NavLink';
 import { categories } from 'utils/data';
+import useAuth from 'hooks/auth';
 
 interface SidebarProps {
-	user: User;
 	closeToggle: Function;
 }
 
-export default function Sidebar({ user, closeToggle }: SidebarProps) {
+export default function Sidebar({ closeToggle }: SidebarProps) {
+	const { user } = useAuth();
+
 	function handleCloseSidebar() {
 		if (closeToggle) {
 			closeToggle(false);
@@ -23,7 +25,7 @@ export default function Sidebar({ user, closeToggle }: SidebarProps) {
 					<a 
 						href="/" 
 						className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
-						onClick={handleCloseSidebar}
+						onClick={() => handleCloseSidebar}
 					>
 						<img src="/assets/logo.png" alt="logo" className="w-full" />
 					</a>

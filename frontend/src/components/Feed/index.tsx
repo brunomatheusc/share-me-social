@@ -1,39 +1,25 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-
-import { feedQuery, searchQuery } from "utils/data";
-import { client } from "providers/sanityClient";
+import { useState } from "react";
 
 import { MasonryLayout, Spinner } from 'container/Home/components';
 
-export default function Feed() {
-	const router = useRouter();
+export interface FeedProps {
+	categoryId?: string;
+	pins?: Pin[];
+}
 
-	const categoryId = router.query.category as string;
-
-	const [loading, setLoading] = useState(false);
-	const [pins, setPins] = useState<Pin[] | null>(null);
-
-	useEffect(() => {
-		setLoading(true);
-
-		(async () => {
-			const response = await client.fetch(categoryId ? searchQuery(categoryId) : feedQuery);
-			
-			setPins(response);
-			setLoading(false);
-		})()
-	}, [categoryId]);
+export default function Feed({ pins }: FeedProps) {
+	const [loading, setLoading] = useState(true);
+	setTimeout(() => setLoading(false), 1000);
 
 	if (loading) {
 		return <Spinner message="We are adding new ideas to your feed!" />
 	}
 
-	if (!pins?.length) return <h2>No pins at this category</h2>;
+	if (!pins?.length) return (<div><h2>No pins at this category</h2></div>);
 
 	return (
 		<div>
-			{ pins && <MasonryLayout pins={pins} />}
+			{ !!pins.length && <MasonryLayout pins={pins} />}
 		</div>
 	);
 }

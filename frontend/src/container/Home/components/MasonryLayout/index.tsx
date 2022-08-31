@@ -19,7 +19,7 @@ const breakpoints = {
 export default function MasonryLayout({ pins }: MasonryLayoutProps) {
 	return (
 		<Masonry className="flex animate-slide-fwd" breakpointCols={breakpoints}>
-		{ pins?.map((pin) => <Pin key={pin._id} pin={pin} />)}
+		{ pins?.length && pins.map((pin) => <Pin key={pin._id} pin={pin} />)}
 		</Masonry>
 	);
 }

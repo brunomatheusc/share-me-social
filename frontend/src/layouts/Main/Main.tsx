@@ -13,7 +13,7 @@ interface Props {
 	themeMode: string;
 };
 
-const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {	
+const Main = ({ children }: Props): JSX.Element => {	
 	const { user } = useAuth();	
 	const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {
 	return (
 		<div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
 			<div className="hidden md:flex h-screen flex-initial">
-				<Sidebar user={user} closeToggle={setToggleSidebar} />
+				<Sidebar closeToggle={setToggleSidebar} />
 			</div>
 
 			<div className="flex md:hidden flex-row">
@@ -44,12 +44,12 @@ const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {
 						<AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
 					</div>
 
-					<Sidebar user={user} closeToggle={setToggleSidebar} />
+					<Sidebar closeToggle={setToggleSidebar} />
 				</div>
 				)}
 			</div>
 
-			<main className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
+			<div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
 				<div className="px-2 md:px-5">
 					<div className="bg-gray-50">
 						<Navbar />
@@ -59,7 +59,7 @@ const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {
 						{children}
 					</div>
 				</div>
-			</main>
+			</div>
 		</div>
 	);
 };

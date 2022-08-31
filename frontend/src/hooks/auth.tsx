@@ -11,7 +11,6 @@ interface AuthState {
 
 interface SignInCredentials {
 	googleId: string;
-	wallet: string;
 }
 
 interface AuthContextData {
@@ -29,15 +28,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-	const [data, setData] = useState<AuthState>(() => {
-		if (typeof window !== "undefined") {
-			const user = localStorage.getItem("@share-me:user");
-
-			return !!user ? { user: JSON.parse(user) } : {} as AuthState;
-		}
-
-		return {} as AuthState;
-	});
+	const [data, setData] = useState<AuthState>({} as AuthState);
 
 	function handleSetData(user: User) {
 		localStorage.setItem("@share-me:user", JSON.stringify(user));
@@ -79,6 +70,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	const setUser = useCallback((user: User) => {
 		handleSetData(user);
+	}, []);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const user = localStorage.getItem("@share-me:user");
+			setData(!!user ? { user: JSON.parse(user) } : {} as AuthState);
+		}
 	}, []);
 
 	return (

@@ -1,26 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-export const useDarkMode = () => {
-	const [themeMode, setTheme] = useState('dark');
-	const [mountedComponent, setMountedComponent] = useState(false);
-
-	const setMode = (mode: string) => {
-		window.localStorage.setItem('themeMode', mode);
-		setTheme(mode);
-	};
-
-	const themeToggler = () => {
-		themeMode === 'light' ? setMode('dark') : setMode('light');
-	};
-
-	useEffect(() => {
-		const localTheme = window.localStorage.getItem('themeMode');
-		localTheme ? setTheme(localTheme) : setMode('dark');
-		setMountedComponent(true);
-	}, []);
-
-	return [themeMode, themeToggler, mountedComponent];
-};
+import React, { useEffect } from 'react';
 
 interface Props {
 	layout: any;
@@ -39,11 +17,9 @@ export default function WithLayout({ component: Component, layout: Layout, ...re
 		}
 	}, []);
 
-	const [themeMode, themeToggler, mountedComponent] = useDarkMode();
-
 	return (
-		<Layout themeMode={themeMode} themeToggler={themeToggler} {...rest}>
-			<Component themeMode={themeMode} {...rest} />
+		<Layout {...rest}>
+			<Component {...rest} />
 		</Layout>
 	);
 }
