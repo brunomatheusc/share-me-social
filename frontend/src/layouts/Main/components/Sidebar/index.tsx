@@ -1,21 +1,13 @@
 import Link from 'next/link';
 import { RiHomeFill } from 'react-icons/ri';
-import { IoIosArrowForward } from 'react-icons/io';
+
 import NavLink from 'components/NavLink';
+import { categories } from 'utils/data';
 
 interface SidebarProps {
 	user: User;
 	closeToggle: Function;
 }
-
-const categories = [
-	{ name: 'Animals' },
-	{ name: 'Wallpapers' },
-	{ name: 'Photography' },
-	{ name: 'Gaming' },
-	{ name: 'Coding' },
-	{ name: 'Other' },
-];
 
 export default function Sidebar({ user, closeToggle }: SidebarProps) {
 	function handleCloseSidebar() {
@@ -47,6 +39,7 @@ export default function Sidebar({ user, closeToggle }: SidebarProps) {
 
 					{ categories.slice(0, categories.length - 1).map((category, index) => (
 					<NavLink href={`/category/${category.name}`} key={`category-${category.name}-${index}`}>
+						<img src={category.image} alt="category" className="w-8 h-8 rounded-full shadow-sm" />
 						<span>{category.name}</span>
 					</NavLink>
 					))}
@@ -55,11 +48,10 @@ export default function Sidebar({ user, closeToggle }: SidebarProps) {
 
 			{ user && (
 				<Link 
-					href={`user-profile/${user._id}`}
-					passHref
-					onClick={handleCloseSidebar}
+					href={`/user-profile/${user._id}`}
+					passHref					
 				>
-					<a className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
+					<a className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3" onClick={handleCloseSidebar}>
 						<img src={user.image} referrerPolicy="no-referrer" className="w-10 h-10 rounded-full" alt="User profile" />
 						<p>{user.userName}</p>
 					</a>

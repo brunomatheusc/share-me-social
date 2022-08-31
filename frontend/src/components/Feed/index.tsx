@@ -12,7 +12,7 @@ export default function Feed() {
 	const categoryId = router.query.category as string;
 
 	const [loading, setLoading] = useState(false);
-	const [pins, setPins] = useState(null);
+	const [pins, setPins] = useState<Pin[] | null>(null);
 
 	useEffect(() => {
 		setLoading(true);
@@ -23,11 +23,13 @@ export default function Feed() {
 			setPins(response);
 			setLoading(false);
 		})()
-	}, []);
+	}, [categoryId]);
 
 	if (loading) {
 		return <Spinner message="We are adding new ideas to your feed!" />
 	}
+
+	if (!pins?.length) return <h2>No pins at this category</h2>;
 
 	return (
 		<div>
