@@ -21,10 +21,14 @@ export default function Navbar() {
 
 				<input
 					type="text"
-					onChange={(e) => setSearchTerm(e.target.value)}
 					placeholder="Search"
 					value={searchTerm}
-					onFocus={() => router.push('/search')}
+					onChange={(e) => { 
+						const value = e.target.value; 
+						setSearchTerm(value);
+						router.push(`/search?q=${value}`);
+					}}
+					// onFocus={() => router.push(`/search?q=${searchTerm}`)}
 					className="p-2 w-full bg-white outline-none"
 				/>
 			</div>

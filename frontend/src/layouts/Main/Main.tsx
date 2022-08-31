@@ -49,8 +49,6 @@ const Main = ({ children, themeToggler, themeMode }: Props): JSX.Element => {
 				)}
 			</div>
 
-			{/* <Sidebar user={user} closeToggle={setToggleSidebar} /> */}
-
 			<main className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
 				<div className="px-2 md:px-5">
 					<div className="bg-gray-50">

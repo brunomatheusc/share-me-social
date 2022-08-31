@@ -3,11 +3,11 @@ import type { NextPage } from 'next';
 import WithLayout from 'layouts/WithLayout';
 import Main from 'layouts/Main';
 
-import PinsContainer from 'container/Pins';
+import { Search } from 'components';
 
 const SearchPage: NextPage = () => {
 	return (
-		<WithLayout layout={Main} component={PinsContainer} />
+		<WithLayout layout={Main} component={Search} />
 	);
 }
 
