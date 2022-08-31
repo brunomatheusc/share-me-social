@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<GoogleOAuthProvider clientId={clientId}>
 			<AppProvider>
 				<Head>
-					<title>ShareME</title>
+					<title>Share Me</title>
 					<link rel="shortcut icon" href="/assets/favicon.png" />
 					<link rel="apple-touch-icon" href="/assets/favicon.png" />
 					<link rel="manifest" href="/manifest.json"/>
