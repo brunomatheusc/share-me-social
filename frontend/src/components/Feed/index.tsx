@@ -19,18 +19,9 @@ export default function Feed() {
 
 		(async () => {
 			const response = await client.fetch(categoryId ? searchQuery(categoryId) : feedQuery);
-			console.log({ response });
 			
 			setPins(response);
 			setLoading(false);
-
-			// if (categoryId) {
-			// 	const query = searchQuery(categoryId);
-			// 	const response = await client.fetch(query);
-			// } else {
-			// 	const response = await client.fetch(feedQuery); 
-			// 	setPins(response);
-			// }
 		})()
 	}, []);
 

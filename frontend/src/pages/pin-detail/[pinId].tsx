@@ -1,15 +1,40 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 
 import WithLayout from 'layouts/WithLayout';
 import Main from 'layouts/Main';
+import { PinDetail } from 'components';
+import { PinDetailProps } from 'components/PinDetail';
 
-import PinsContainer from 'container/Pins';
-import HomeContainer from 'container/Home';
+import { client } from 'providers/sanityClient';
+import { feedQuery, pinDetailMorePinQuery, pinDetailQuery } from "utils/data";
 
-const PinDetailPage: NextPage = () => {
+
+export default function PinDetailPage(props: PinDetailProps) {
 	return (
-		<WithLayout layout={Main} component={HomeContainer} />
+		<WithLayout layout={Main} component={PinDetail} {...props} />
 	);
 }
 
-export default PinDetailPage;
+export async function getStaticPaths() {
+	const pinsResponse = await client.fetch<Pin[]>(feedQuery);	
+
+	const paths = pinsResponse.map(({ _id }) => ({ params: { pinId: _id }}));
+
+	return { paths, fallback: true };
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+	const pinId = params?.pinId as string;
+
+	const [pin] = await client.fetch(pinDetailQuery(pinId));
+	const pinsResponse = await client.fetch(pinDetailMorePinQuery(pin));	
+
+	return {
+		revalidate: 60,
+		props: {
+			pinId: params?.pinId,
+			pin,
+			pins: pinsResponse
+		}
+	}
+}
