@@ -10,9 +10,7 @@ import { feedQuery, pinDetailMorePinQuery, pinDetailQuery } from "utils/data";
 
 
 export default function PinDetailPage(props: PinDetailProps) {
-	return (
-		<WithLayout layout={Main} component={PinDetail} {...props} />
-	);
+	return <WithLayout layout={Main} component={PinDetail} {...props} />;
 }
 
 export async function getStaticPaths() {
