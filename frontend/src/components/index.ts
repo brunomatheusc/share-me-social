@@ -1,5 +1,6 @@
 export { default as CreatePin } from './CreatePin';
 export { default as Feed } from './Feed';
+export { default as Input } from './Input';
 export { default as Login } from './Login';
 export { default as Navbar } from './Navbar';
 export { default as Pin } from './Pin';

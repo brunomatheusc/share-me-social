@@ -1,10 +1,10 @@
 import { Circles } from 'react-loader-spinner';
 
 interface SpinnerProps {
-	message: string;
+	message?: string;
 }
 
-export default function Spinner({ message }: SpinnerProps) {
+export default function Spinner({ message = '' }: SpinnerProps) {
 	return (
 		<div className="flex flex-col justify-center items-center w-full h-full">
 			<div className="m-5">
