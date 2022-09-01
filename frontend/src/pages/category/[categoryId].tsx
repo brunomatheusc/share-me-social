@@ -3,7 +3,6 @@ import type { GetStaticProps, NextPage } from 'next';
 import WithLayout from 'layouts/WithLayout';
 import Main from 'layouts/Main';
 
-import HomeContainer from 'container/Home';
 import { client } from 'providers/sanityClient';
 import { categories, searchQuery } from 'utils/data';
 import Feed, { FeedProps } from 'components/Feed';

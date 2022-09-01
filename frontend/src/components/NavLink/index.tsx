@@ -16,9 +16,6 @@ export default function NavLink({ href, exact = false, children, ...props }: Nav
     const isActive = exact ? pathname === href : pathname.startsWith(href);
 
 	props.className = isActive ? isActiveStyle : isNotActiveStyle;
-    // if (isActive) {
-    //     props.className += ' active';
-    // }
 
     return (
         <Link href={href}>
