@@ -1,7 +1,5 @@
-import { Feed, Sidebar, UserProfile } from 'components';
+import { Feed } from 'components';
 
 export default function HomeContainer() {
-	return (
-		<Feed />
-	);
+	return (<Feed />);
 }

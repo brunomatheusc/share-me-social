@@ -1,5 +1,3 @@
-import type { NextPage } from 'next';
-
 import WithLayout from 'layouts/WithLayout';
 import Main from 'layouts/Main';
 

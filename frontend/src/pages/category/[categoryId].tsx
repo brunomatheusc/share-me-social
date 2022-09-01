@@ -5,10 +5,17 @@ import Main from 'layouts/Main';
 
 import HomeContainer from 'container/Home';
 import { client } from 'providers/sanityClient';
-import { searchQuery } from 'utils/data';
+import { categories, searchQuery } from 'utils/data';
+import Feed, { FeedProps } from 'components/Feed';
 
-const Category: NextPage = () => {
-	return (<WithLayout layout={Main} component={HomeContainer} />);
+const Category: NextPage = (props: FeedProps) => {
+	return (<WithLayout layout={Main} component={Feed} {...props} />);
+}
+
+export async function getStaticPaths() {
+	const paths = categories.map(({ name }) => ({ params: { categoryId: name }}));
+
+	return { paths, fallback: true };
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
