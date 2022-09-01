@@ -12,8 +12,8 @@ const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize';
 
 export default function NavLink({ href, exact = false, children, ...props }: NavLinkProps & LinkProps) {
-    const { pathname } = useRouter();
-    const isActive = exact ? pathname === href : pathname.startsWith(href);
+    const { pathname, asPath } = useRouter();
+    const isActive = exact ? pathname === href : asPath.startsWith(href);
 
 	props.className = isActive ? isActiveStyle : isNotActiveStyle;
 
